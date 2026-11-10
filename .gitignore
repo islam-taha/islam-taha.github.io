@@ -24,3 +24,4 @@ out
 next-env.d.ts
 *.tsbuildinfo
 .verify
+.claude/settings.local.json
