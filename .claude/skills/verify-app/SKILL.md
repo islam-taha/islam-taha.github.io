@@ -42,17 +42,19 @@ curl -s -o /dev/null -w '%{http_code}\n' localhost:3000/    # expect 200
 ```sh
 node .claude/skills/verify-app/scripts/shoot.mjs [baseUrl]
 ```
-Opens the page at 1440×900 and 390×844, and writes `.verify/desktop-first.png`,
-`.verify/phone-first.png` and `.verify/report.json` (title, lang, `h1`, sidebar and
-statusline visibility per viewport, tab hrefs, avatar box, terminal link hrefs,
-horizontal overflow, console errors, phone-number scan). Look at the PNGs; compare against
-the approved mockups. Expected: desktop avatar float at x=1104,y=66 size 296 wide; phone
-avatar at x=36 about 150 wide, stacked above the text; `sidebarVisible` false and
-`statuslineEncVisible` false on phone; `hasPhone` false; no console errors.
+Opens the page at 390, 768, 1024, 1440 and 1920 px wide, clicks each tab (real smooth
+scroll) at 390 and 1440 and records what the chrome says, tests a `<details>` toggle by
+keyboard, and loads the page with JS disabled. Writes `.verify/{phone,desktop}-{about,shipped,
+experience,skills,contact}.png`, `.verify/<viewport>-first.png`, full-page shots for tablet,
+laptop and wide, and `.verify/report.json`. Look at the PNGs; compare against the approved
+mockup. Expected: every viewport has `horizontalOverflow` false, `h1Count` 1, `hasPhone`
+false, no console errors, `openFolds` `[true,true,false,false,false,false]`, links `externalLinksOk`;
+`spy.<section>` shows the matching tab/tree/`file`/`ft`, `pos` `Top 1:1` at the top and `Bot 1:1` at the
+bottom; `noJs` all true; `sidebarVisible` false below 900px.
 
-Real selectors: `nav.tabline a.tab` (href `#about`…`#contact`), `aside.sidebar .tree__item`,
-`main#… section.buffer#about .row` (`.row--cursor` = line 1), `figure.float`, `.term a`,
-`footer.statusline .sl`, `.msgline`.
+Real selectors: `nav.tabline a.tab[data-file]` (hrefs `#about`…`#contact`),
+`aside.sidebar .tree__item`, `section.buffer#about … #contact`, `.row` (`.row--cursor` = line 1),
+`details.fold > summary`, `figure.float`, `.term a`, `[data-sl=file|ft|pos]`, `[data-msgline]`.
 
 Side effects: none (read-only site, no network calls except to localhost).
 
@@ -73,4 +75,5 @@ One file per user-facing feature in `features/`:
 - `features/terminal-contact.md` — terminal split and contact links
 - `features/section-navigation.md` — tabline, file tree, anchors
 - `features/responsive-layout.md` — mobile (<900px) behaviour
-- `features/content-sections.md` — shipped/experience/skills/contact (added by the next ticket)
+- `features/content-sections.md` — shipped/experience/skills/contact sections
+- `features/scroll-spy.md` — scroll-aware tabline, tree, statusline, message line

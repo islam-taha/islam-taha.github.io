@@ -18,6 +18,7 @@
   --mauve: #cba6f7;
   --pink: #f5c2e7;
   --teal: #94e2d5;
+  --lavender: #b4befe;
 
   --tabline-h: 34px;
   --statusline-h: 26px;
@@ -263,8 +264,19 @@ ul {
 
 .buffer {
   counter-reset: ln;
-  margin-bottom: 48px;
-  scroll-margin-top: var(--tabline-h);
+  max-width: 1180px;
+  margin: 0 auto 48px;
+  scroll-margin-top: calc(var(--tabline-h) + 12px);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .row {
@@ -346,6 +358,9 @@ code {
   color: var(--overlay2);
   font-size: 12px;
 }
+.winbar__name {
+  color: var(--lavender);
+}
 .winbar__ft {
   color: var(--overlay1);
 }
@@ -353,6 +368,106 @@ code {
   flex: 1;
   height: 1px;
   background: var(--surface0);
+}
+
+/* ---------- shipped: native <details> folds ---------- */
+.fold > summary {
+  display: block;
+  list-style: none;
+  cursor: pointer;
+}
+.fold > summary::-webkit-details-marker {
+  display: none;
+}
+.fold > summary:focus-visible {
+  outline: 2px solid var(--mauve);
+  outline-offset: -2px;
+  border-radius: 2px;
+}
+.fold__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: 16px;
+}
+.fold__mk {
+  color: var(--overlay1);
+  font-weight: 400;
+}
+.fold__mk--shut,
+.fold:not([open]) .fold__mk--open {
+  display: none;
+}
+.fold:not([open]) .fold__mk--shut {
+  display: inline;
+}
+.fold__role {
+  color: var(--overlay2);
+  font-weight: 400;
+}
+.fold__dates {
+  color: var(--overlay1);
+  font-weight: 400;
+  white-space: nowrap;
+}
+.fold__hint {
+  display: none;
+  color: var(--overlay1);
+  font-style: italic;
+}
+.fold:not([open]) .fold__hint {
+  display: block;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 6px;
+}
+.tags code,
+.check__items code {
+  white-space: nowrap;
+}
+
+/* ---------- experience: git log ---------- */
+.gl__star {
+  color: var(--mauve);
+  font-weight: 700;
+}
+.gl__date {
+  display: inline-block;
+  min-width: 20ch;
+  color: var(--overlay1);
+}
+.gl__co {
+  color: var(--yellow);
+}
+.gl__role {
+  color: #bac2de;
+}
+.gl__tag {
+  color: var(--mauve);
+  font-weight: 700;
+}
+
+/* ---------- skills: :checkhealth ---------- */
+.check__ok {
+  color: var(--green);
+  font-weight: 700;
+}
+.check__label {
+  color: var(--text);
+  margin-right: 1ch;
+}
+.check__items code {
+  margin-right: 6px;
+}
+
+/* ---------- contact ---------- */
+.kv__key {
+  display: inline-block;
+  min-width: 10ch;
+  color: var(--yellow);
 }
 
 /* ---------- hero / avatar float ---------- */
@@ -523,6 +638,15 @@ code {
   }
   .float {
     padding-bottom: 6px;
+  }
+  /* dates drop under the heading; git log dates stack above the role */
+  .fold__dates {
+    flex-basis: 100%;
+    white-space: normal;
+  }
+  .gl__date {
+    min-width: 0;
+    margin-right: 1.5ch;
   }
 }
 

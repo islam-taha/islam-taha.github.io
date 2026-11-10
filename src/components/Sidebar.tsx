@@ -10,7 +10,7 @@ export default function Sidebar({ active = "about.md" }: { active?: string }) {
       <ul className="tree">
         {FILES.map((f, i) => (
           <li key={f.name}>
-            <a className={`tree__item${f.name === active ? " tree__item--active" : ""}`} href={f.href}>
+            <a className={`tree__item${f.name === active ? " tree__item--active" : ""}`} href={f.href} data-file={f.filetype ? f.name : undefined}>
               <span className="tree__conn" aria-hidden="true">{i === FILES.length - 1 ? "└─" : "├─"}</span>
               <span className={`tree__icon tree__icon--${f.icon}`} aria-hidden="true" />
               {f.name}
