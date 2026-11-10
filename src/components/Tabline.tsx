@@ -10,6 +10,7 @@ export default function Tabline({ active = "about.md" }: { active?: string }) {
           <li key={f.name}>
             <a
               className={`tab${f.name === active ? " tab--active" : ""}`}
+              data-file={f.name}
               href={f.href}
               aria-current={f.name === active ? "page" : undefined}
             >

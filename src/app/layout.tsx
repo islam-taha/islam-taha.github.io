@@ -7,6 +7,7 @@ import Tabline from "@/components/Tabline";
 import Sidebar from "@/components/Sidebar";
 import Statusline from "@/components/Statusline";
 import MessageLine from "@/components/MessageLine";
+import ScrollSpy from "@/components/ScrollSpy";
 
 export const metadata: Metadata = {
   title: "Islam Taha — Senior / Staff Software Engineer",
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="main">{children}</main>
         <Statusline />
         <MessageLine />
+        <ScrollSpy />
       </body>
     </html>
   );
