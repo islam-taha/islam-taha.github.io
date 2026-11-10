@@ -17,3 +17,11 @@ build
 
 # Fredrin's machine-local tool state — never project content
 .fredrin/
+
+# next / export
+.next
+out
+next-env.d.ts
+*.tsbuildinfo
+.verify
+.claude/settings.local.json
